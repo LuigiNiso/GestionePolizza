@@ -1,14 +1,21 @@
 import java.awt.EventQueue;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class UserView {
 
     private JFrame frame;
-    private JTextField textField;
+    private JTextField txtTarga;
 
     /**
      * Launch the application.
@@ -61,14 +68,15 @@ public class UserView {
         lblTarga.setBounds(51, 11, 144, 28);
         pnlBody.add(lblTarga);
 
-        textField = new JTextField();
-        textField.setColumns(10);
-        textField.setBounds(205, 11, 167, 28);
-        pnlBody.add(textField);
+        txtTarga = new JTextField();
+        txtTarga.setColumns(10);
+        txtTarga.setBounds(205, 11, 167, 28);
+        pnlBody.add(txtTarga);
 
-        JTextArea textArea = new JTextArea();
-        textArea.setBounds(51, 96, 321, 123);
-        pnlBody.add(textArea);
+        JTextArea txtResult = new JTextArea();
+        txtResult.setEditable(false);
+        txtResult.setBounds(51, 96, 321, 123);
+        pnlBody.add(txtResult);
 
         JButton btnCerca = new JButton("Cerca");
         btnCerca.setFont(new Font("Segoe UI", Font.PLAIN, 20));

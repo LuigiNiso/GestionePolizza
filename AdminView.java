@@ -1,16 +1,23 @@
 import java.awt.EventQueue;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.JTextField;
+import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class AdminView {
 
     private JFrame frame;
-    private JTextField textField;
-    private JTextField textField_1;
-    private JTextField textField_2;
+    private JTextField txtModello;
+    private JTextField txtCilindrata;
+    private JTextField txtScadenza;
+    private JTextField txtTarga;
 
     /**
      * Launch the application.
@@ -60,44 +67,54 @@ public class AdminView {
 
         JLabel lblModello = new JLabel("Modello");
         lblModello.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-        lblModello.setBounds(41, 53, 144, 28);
+        lblModello.setBounds(41, 42, 144, 28);
         pnlBody.add(lblModello);
 
-        textField = new JTextField();
-        textField.setColumns(10);
-        textField.setBounds(195, 53, 167, 28);
-        pnlBody.add(textField);
+        txtModello = new JTextField();
+        txtModello.setColumns(10);
+        txtModello.setBounds(195, 42, 167, 28);
+        pnlBody.add(txtModello);
 
         JLabel lblAggiungiAuto = new JLabel("Aggiungi auto");
         lblAggiungiAuto.setHorizontalAlignment(SwingConstants.LEFT);
         lblAggiungiAuto.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-        lblAggiungiAuto.setBounds(41, 11, 301, 31);
+        lblAggiungiAuto.setBounds(41, 0, 301, 31);
         pnlBody.add(lblAggiungiAuto);
 
         JLabel lblCilindrata = new JLabel("Cilindrata");
         lblCilindrata.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-        lblCilindrata.setBounds(41, 90, 144, 28);
+        lblCilindrata.setBounds(41, 79, 144, 28);
         pnlBody.add(lblCilindrata);
 
-        textField_1 = new JTextField();
-        textField_1.setColumns(10);
-        textField_1.setBounds(195, 90, 167, 28);
-        pnlBody.add(textField_1);
+        txtCilindrata = new JTextField();
+        txtCilindrata.setColumns(10);
+        txtCilindrata.setBounds(195, 79, 167, 28);
+        pnlBody.add(txtCilindrata);
 
         JLabel lblScadenzaPolizza = new JLabel("Scadenza Polizza");
         lblScadenzaPolizza.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-        lblScadenzaPolizza.setBounds(41, 129, 144, 28);
+        lblScadenzaPolizza.setBounds(41, 118, 144, 28);
         pnlBody.add(lblScadenzaPolizza);
 
-        textField_2 = new JTextField();
-        textField_2.setColumns(10);
-        textField_2.setBounds(195, 129, 167, 28);
-        pnlBody.add(textField_2);
+        txtScadenza = new JTextField();
+        txtScadenza.setColumns(10);
+        txtScadenza.setBounds(195, 118, 167, 28);
+        pnlBody.add(txtScadenza);
 
         JButton btnAggiungi = new JButton("Aggiungi");
-        btnAggiungi.setFont(new Font("Segoe UI", Font.PLAIN, 19));
-        btnAggiungi.setBounds(124, 169, 144, 36);
+        btnAggiungi.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        btnAggiungi.setBounds(117, 196, 144, 28);
         pnlBody.add(btnAggiungi);
+
+        JLabel lblTarga = new JLabel("Targa");
+        lblTarga.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        lblTarga.setBounds(41, 157, 144, 28);
+        pnlBody.add(lblTarga);
+
+        txtTarga = new JTextField();
+        txtTarga.setColumns(10);
+        txtTarga.setBounds(195, 157, 167, 28);
+        pnlBody.add(txtTarga);
         btnAggiungi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
