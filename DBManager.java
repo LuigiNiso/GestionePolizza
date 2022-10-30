@@ -1,19 +1,19 @@
 import java.sql.*;
 
-public class DBManagement {
+public class DBManager {
     private Connection connection;
     private Statement query;
     private ResultSet rs;
 
-    public DBManagement() {
+    public DBManager() {
         System.out.println("Installing drivers...");
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("Installed!");
         } catch (Exception e) {
             System.out.println("Error!");
             e.printStackTrace();
         }
-        System.out.println("Installed!");
     }
 
     public void connectToDB() {
@@ -46,7 +46,7 @@ public class DBManagement {
         }
     }
 
-    public int login(String email, String password) {
+    public String login(String email, String password) {
 
         try {
             rs = query.executeQuery("SELECT users.Email FROM users WHERE Email = '" + email + "';");
@@ -55,20 +55,20 @@ public class DBManagement {
                         "SELECT * FROM users WHERE Email = '" + email + "' AND Password = '" + password + "'");
                 if (users.next()) {
                     if (users.getInt("admin") == 1) {
-                        return 2; // LOG AS ADMIN
+                        return "2"; // LOG AS ADMIN
                     } else {
-                        return 1; // LOG AS USER
+                        return "1"; // LOG AS USER
                     }
                 } else {
-                    return 0; // WRONG PASSWORD
+                    return "Password errata!"; // WRONG PASSWORD
                 }
             } else {
-                return -1; // EMAIL NOT REGISTERED
+                return "Email non regisrata"; // EMAIL NOT REGISTERED
             }
         } catch (Exception e) {
             System.out.println("Error!");
             e.printStackTrace();
-            return -2; // PROGRAM ERROR
+            return "Errore nel programma"; // PROGRAM ERROR
         }
     }
 
@@ -79,7 +79,18 @@ public class DBManagement {
             query.execute(sql);
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
+        }
+    }
+
+    public String getScadenza(String targa) {
+        String sql = "SELECT users.Scadenza FROM users WHERE Targa = " + targa + ";";
+        try {
+            rs = query.executeQuery(sql);
+            return rs.getString("Scadenza");
+        } catch (Exception e) {
+            return null;
         }
     }
 

@@ -8,7 +8,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-public class ClientFrame {
+public class ClientFrame extends Client {
 
     private JFrame frame;
 
@@ -21,10 +21,11 @@ public class ClientFrame {
     private JTextField txtPassword2;
     private JTextField txtPasswordLogin;
     private JLabel lblMessage = new JLabel("");
-    private JTextField txtTarga;
+    private JTextField txtTargaUser;
     private JTextField txtModello;
     private JTextField txtCilindrata;
     private JTextField txtScadenza;
+    private JTextArea textArea = new JTextArea();
 
     /**
      * Launch the application.
@@ -299,7 +300,58 @@ public class ClientFrame {
 
     private void userView() {
         resetPage();
+        lblTitle.setText("Controllo scadenza polizza");
+        pnlView.add(pnlHome);
+        SpringLayout sl_pnlHome = new SpringLayout();
+        pnlHome.setLayout(sl_pnlHome);
 
+        JLabel lblTarga = new JLabel("Targa");
+        sl_pnlHome.putConstraint(SpringLayout.WEST, lblTarga, 10, SpringLayout.WEST, pnlHome);
+        lblTarga.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+        pnlHome.add(lblTarga);
+
+        txtTargaUser = new JTextField();
+        sl_pnlHome.putConstraint(SpringLayout.WEST, txtTargaUser, 176, SpringLayout.WEST, pnlHome);
+        sl_pnlHome.putConstraint(SpringLayout.EAST, lblTarga, -6, SpringLayout.WEST, txtTargaUser);
+        sl_pnlHome.putConstraint(SpringLayout.EAST, txtTargaUser, -10, SpringLayout.EAST, pnlHome);
+        sl_pnlHome.putConstraint(SpringLayout.SOUTH, lblTarga, 0, SpringLayout.SOUTH, txtTargaUser);
+        sl_pnlHome.putConstraint(SpringLayout.NORTH, txtTargaUser, 10, SpringLayout.NORTH, pnlHome);
+        sl_pnlHome.putConstraint(SpringLayout.SOUTH, txtTargaUser, 34, SpringLayout.NORTH, pnlHome);
+        pnlHome.add(txtTargaUser);
+        txtTargaUser.setColumns(10);
+
+        JButton btnCerca = new JButton("Cerca auto");
+        sl_pnlHome.putConstraint(SpringLayout.EAST, btnCerca, -10, SpringLayout.EAST, pnlHome);
+        btnCerca.setForeground(new Color(255, 255, 255));
+        btnCerca.setBackground(new Color(43, 198, 54));
+        btnCerca.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+        pnlHome.add(btnCerca);
+
+        JButton btnTornaAllaHome = new JButton("Torna alla home");
+        sl_pnlHome.putConstraint(SpringLayout.NORTH, btnCerca, 0, SpringLayout.NORTH, btnTornaAllaHome);
+        sl_pnlHome.putConstraint(SpringLayout.WEST, btnCerca, 135, SpringLayout.EAST, btnTornaAllaHome);
+        sl_pnlHome.putConstraint(SpringLayout.WEST, btnTornaAllaHome, 10, SpringLayout.WEST, pnlHome);
+        sl_pnlHome.putConstraint(SpringLayout.SOUTH, btnTornaAllaHome, -34, SpringLayout.SOUTH, pnlHome);
+        sl_pnlHome.putConstraint(SpringLayout.EAST, btnTornaAllaHome, -340, SpringLayout.EAST, pnlHome);
+        btnTornaAllaHome.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                loginOrRegisterPage();
+            }
+        });
+        btnTornaAllaHome.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+        pnlHome.add(btnTornaAllaHome);
+
+        sl_pnlHome.putConstraint(SpringLayout.NORTH, textArea, 21, SpringLayout.SOUTH, lblTarga);
+        sl_pnlHome.putConstraint(SpringLayout.WEST, textArea, 10, SpringLayout.WEST, pnlHome);
+        sl_pnlHome.putConstraint(SpringLayout.SOUTH, textArea, -21, SpringLayout.NORTH, btnCerca);
+        sl_pnlHome.putConstraint(SpringLayout.EAST, textArea, 0, SpringLayout.EAST, txtTargaUser);
+        pnlHome.add(textArea);
+
+        btnCerca.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                searchVehicle();
+            }
+        });
     }
 
     private void adminView() {
@@ -314,15 +366,15 @@ public class ClientFrame {
         lblTarga.setFont(new Font("Segoe UI", Font.PLAIN, 17));
         pnlHome.add(lblTarga);
 
-        txtTarga = new JTextField();
-        sl_pnlHome.putConstraint(SpringLayout.WEST, txtTarga, 176, SpringLayout.WEST, pnlHome);
-        sl_pnlHome.putConstraint(SpringLayout.EAST, lblTarga, -6, SpringLayout.WEST, txtTarga);
-        sl_pnlHome.putConstraint(SpringLayout.EAST, txtTarga, -10, SpringLayout.EAST, pnlHome);
-        sl_pnlHome.putConstraint(SpringLayout.SOUTH, lblTarga, 0, SpringLayout.SOUTH, txtTarga);
-        sl_pnlHome.putConstraint(SpringLayout.NORTH, txtTarga, 10, SpringLayout.NORTH, pnlHome);
-        sl_pnlHome.putConstraint(SpringLayout.SOUTH, txtTarga, 34, SpringLayout.NORTH, pnlHome);
-        pnlHome.add(txtTarga);
-        txtTarga.setColumns(10);
+        txtTargaUser = new JTextField();
+        sl_pnlHome.putConstraint(SpringLayout.WEST, txtTargaUser, 176, SpringLayout.WEST, pnlHome);
+        sl_pnlHome.putConstraint(SpringLayout.EAST, lblTarga, -6, SpringLayout.WEST, txtTargaUser);
+        sl_pnlHome.putConstraint(SpringLayout.EAST, txtTargaUser, -10, SpringLayout.EAST, pnlHome);
+        sl_pnlHome.putConstraint(SpringLayout.SOUTH, lblTarga, 0, SpringLayout.SOUTH, txtTargaUser);
+        sl_pnlHome.putConstraint(SpringLayout.NORTH, txtTargaUser, 10, SpringLayout.NORTH, pnlHome);
+        sl_pnlHome.putConstraint(SpringLayout.SOUTH, txtTargaUser, 34, SpringLayout.NORTH, pnlHome);
+        pnlHome.add(txtTargaUser);
+        txtTargaUser.setColumns(10);
 
         JLabel lblModello = new JLabel("Modello");
         sl_pnlHome.putConstraint(SpringLayout.NORTH, lblModello, 6, SpringLayout.SOUTH, lblTarga);
@@ -332,8 +384,8 @@ public class ClientFrame {
 
         txtModello = new JTextField();
         sl_pnlHome.putConstraint(SpringLayout.EAST, lblModello, -6, SpringLayout.WEST, txtModello);
-        sl_pnlHome.putConstraint(SpringLayout.NORTH, txtModello, 6, SpringLayout.SOUTH, txtTarga);
-        sl_pnlHome.putConstraint(SpringLayout.WEST, txtModello, 0, SpringLayout.WEST, txtTarga);
+        sl_pnlHome.putConstraint(SpringLayout.NORTH, txtModello, 6, SpringLayout.SOUTH, txtTargaUser);
+        sl_pnlHome.putConstraint(SpringLayout.WEST, txtModello, 0, SpringLayout.WEST, txtTargaUser);
         sl_pnlHome.putConstraint(SpringLayout.EAST, txtModello, -10, SpringLayout.EAST, pnlHome);
         txtModello.setColumns(10);
         pnlHome.add(txtModello);
@@ -355,7 +407,6 @@ public class ClientFrame {
         btnTornaAllaHome.setFont(new Font("Segoe UI", Font.PLAIN, 17));
         pnlHome.add(btnTornaAllaHome);
 
-        JLabel lblMessage = new JLabel("");
         sl_pnlHome.putConstraint(SpringLayout.SOUTH, txtModello, -95, SpringLayout.NORTH, lblMessage);
         sl_pnlHome.putConstraint(SpringLayout.WEST, lblMessage, 10, SpringLayout.WEST, pnlHome);
         sl_pnlHome.putConstraint(SpringLayout.EAST, lblMessage, -10, SpringLayout.EAST, pnlHome);
@@ -374,9 +425,9 @@ public class ClientFrame {
 
         txtCilindrata = new JTextField();
         sl_pnlHome.putConstraint(SpringLayout.NORTH, txtCilindrata, 6, SpringLayout.SOUTH, txtModello);
-        sl_pnlHome.putConstraint(SpringLayout.WEST, txtCilindrata, 0, SpringLayout.WEST, txtTarga);
+        sl_pnlHome.putConstraint(SpringLayout.WEST, txtCilindrata, 0, SpringLayout.WEST, txtTargaUser);
         sl_pnlHome.putConstraint(SpringLayout.SOUTH, txtCilindrata, 0, SpringLayout.SOUTH, lblCilindrata);
-        sl_pnlHome.putConstraint(SpringLayout.EAST, txtCilindrata, 0, SpringLayout.EAST, txtTarga);
+        sl_pnlHome.putConstraint(SpringLayout.EAST, txtCilindrata, 0, SpringLayout.EAST, txtTargaUser);
         txtCilindrata.setColumns(10);
         pnlHome.add(txtCilindrata);
 
@@ -389,9 +440,9 @@ public class ClientFrame {
 
         txtScadenza = new JTextField();
         sl_pnlHome.putConstraint(SpringLayout.NORTH, txtScadenza, 6, SpringLayout.SOUTH, txtCilindrata);
-        sl_pnlHome.putConstraint(SpringLayout.WEST, txtScadenza, -349, SpringLayout.EAST, txtTarga);
+        sl_pnlHome.putConstraint(SpringLayout.WEST, txtScadenza, -349, SpringLayout.EAST, txtTargaUser);
         sl_pnlHome.putConstraint(SpringLayout.SOUTH, txtScadenza, 0, SpringLayout.SOUTH, lblScadenza);
-        sl_pnlHome.putConstraint(SpringLayout.EAST, txtScadenza, 0, SpringLayout.EAST, txtTarga);
+        sl_pnlHome.putConstraint(SpringLayout.EAST, txtScadenza, 0, SpringLayout.EAST, txtTargaUser);
         txtScadenza.setColumns(10);
         pnlHome.add(txtScadenza);
 
@@ -403,15 +454,7 @@ public class ClientFrame {
 
         btnAggiungi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                DBManagement dbManagement = new DBManagement();
-                dbManagement.connectToDB();
-
-                if (dbManagement.addVehicle(txtTarga.getText(), txtModello.getText(),
-                        Integer.parseInt(txtCilindrata.getText()), Integer.parseInt(txtScadenza.getText()))) {
-                    lblMessage.setText("Auto aggiunta!");
-                } else {
-                    lblMessage.setText("Un auto con questa targa potrebbe già esistere!");
-                }
+                addVehicle();
             }
         });
     }
@@ -423,78 +466,75 @@ public class ClientFrame {
     }
 
     private void register() {
-        try {
-            int admin = 0;
+        Client c = new Client();
+        c.connectToServer("localhost");
 
-            System.out.println("Open admins file...");
-            BufferedReader fIn = new BufferedReader(new FileReader(new File("admins.txt")));
+        c.sendString("register");
 
-            String line = fIn.readLine();
-            while (line != null) {
-                if (txtEmail.getText().equals(line)) {
-                    System.out.println("This user is admin.");
-                    admin = 1;
-                }
-                line = fIn.readLine();
-            }
+        c.sendString(txtEmail.getText());
+        c.sendString(txtPassword1.getText());
+        c.sendString(txtPassword2.getText());
 
-            DBManagement dbManagement = new DBManagement();
-            dbManagement.connectToDB();
+        String message = c.readString();
 
-            if (!txtEmail.getText().equals("") && !txtPassword1.getText().equals("")
-                    && !txtPassword2.getText().equals("")) {
-                System.out.println("Checking password match...");
-                if (txtPassword1.getText().equals(txtPassword2.getText())) {
-                    System.out.println("asking to db for registration...");
-                    if (dbManagement.register(txtEmail.getText(), txtPassword1.getText(), admin)) {
-                        System.out.println("User added!");
-                        loginFormPage("Account registrato, effettuare l'accesso!");
-                    } else {
-                        System.out.println("User not added!");
-                        lblMessage.setText("Email già registrata!");
-                    }
-                } else {
-                    System.out.println("Password mismatch!");
-                    lblMessage.setText("Le password non corrispondono!");
-                }
-            } else {
-                System.out.println("Must compile all the fields!");
-                lblMessage.setText("I campi non devono essere vuoti!");
-            }
-            dbManagement.closeAll();
-        } catch (Exception ex) {
-            System.out.println("Error!");
-            ex.printStackTrace();
+        if (message.compareTo("accedi") == 0) {
+            loginFormPage("Account registrato!");
+        } else {
+            lblMessage.setText(message);
         }
     }
 
     private void login() {
-        DBManagement dbManagement = new DBManagement();
-        dbManagement.connectToDB();
+        Client c = new Client();
+        c.connectToServer("localhost");
 
-        int error = dbManagement.login(txtEmail.getText(), txtPasswordLogin.getText());
+        c.sendString("login");
+        c.sendString(txtEmail.getText());
+        c.sendString(txtPasswordLogin.getText());
 
-        switch (error) {
-            case -2:
-                lblMessage.setText("Errore nel programma!");
-                break;
-            case -1:
-                lblMessage.setText("Email non registrata!");
-                break;
-            case 0:
-                lblMessage.setText("Password errata!");
-                break;
-            case 1:
-                // TODO CALL MAIN PAGE
-                lblMessage.setText("Entrato come utente!");
-                break;
-            case 2:
-                // TODO CALL MAIN PAGE
-                lblMessage.setText("Entato come admin!");
+        String status = c.readString();
+
+        switch (status) {
+            case "2": {
                 adminView();
+                break;
+            }
+            case "1": {
+                userView();
+                break;
+            }
+
             default:
+                lblMessage.setText(status);
                 break;
         }
+        c.closeConnection();
+    }
 
+    private void addVehicle() {
+        Client c = new Client();
+        c.connectToServer("localhost");
+
+        c.sendString("addVehicle");
+
+        c.sendString(txtTargaUser.getText());
+        c.sendString(txtModello.getText());
+        c.sendObj(Integer.parseInt(txtCilindrata.getText()));
+        c.sendObj(Integer.parseInt(txtCilindrata.getText()));
+
+        lblMessage.setText(c.readString());
+    }
+
+    private void searchVehicle() {
+        Client c = new Client();
+        c.connectToServer("localhost");
+
+        c.sendString("search");
+
+        c.sendString(txtTargaUser.getText());
+
+        String scadenza = c.readString();
+
+        textArea.setText("L' auto scade nell'anno: " + scadenza);
     }
 }
