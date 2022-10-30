@@ -46,6 +46,43 @@ public class DBManagement {
         }
     }
 
+    public int login(String email, String password) {
+
+        try {
+            rs = query.executeQuery("SELECT users.Email FROM users WHERE Email = '" + email + "';");
+            if (rs.next()) {
+                ResultSet users = query.executeQuery(
+                        "SELECT * FROM users WHERE Email = '" + email + "' AND Password = '" + password + "'");
+                if (users.next()) {
+                    if (users.getInt("admin") == 1) {
+                        return 2; // LOG AS ADMIN
+                    } else {
+                        return 1; // LOG AS USER
+                    }
+                } else {
+                    return 0; // WRONG PASSWORD
+                }
+            } else {
+                return -1; // EMAIL NOT REGISTERED
+            }
+        } catch (Exception e) {
+            System.out.println("Error!");
+            e.printStackTrace();
+            return -2; // PROGRAM ERROR
+        }
+    }
+
+    public boolean addVehicle(String targa, String modello, int cilindrata, int scadenza) {
+        String sql = "INSERT INTO `veicoli`(`Targa`, `Modello`, `Cilindrata`, `Scadenza`) VALUES ('" + targa + "','"
+                + modello + "','" + cilindrata + "','" + scadenza + "')";
+        try {
+            query.execute(sql);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public void closeAll() {
         try {
             if (connection != null) {
